@@ -14,7 +14,7 @@
    * License: GPLv2+
    */
 
-namespace cmb2_field_widget_selector;
+namespace CMB2_Field_Widget_Selector;
 
 if ( !defined( 'ABSPATH' ) ) exit; 
 
@@ -23,27 +23,29 @@ if ( !defined( 'ABSPATH' ) ) exit;
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'CMB2_FIELD_WIDGET_SELECTOR_VERSION', '1.0.0' );
-define( 'TEXTDOMAIN', 'cmb2_field_wiget_selector' );
+if ( !defined( 'CMB2_FIELD_WIDGET_SELECTOR_VERSION' ) ) define( 'CMB2_FIELD_WIDGET_SELECTOR_VERSION', '1.0.0' );
 
-function cmb2_field_widget_select_install() {
-  require_once plugin_dir_path( __FILE__ ) . 'includes/sidebar.php';
-  CMB2_Sidebar::create_sidebar_name();   
+if ( !defined( 'PLUGIN_URL' ) ) define( 'PLUGIN_URL', __FILE__ );
+
+function cmb2_field_widget_selector_activate() {
+//  require_once plugin_dir_path( __FILE__ ) . 'includes/class-sidebar.php';
+//  $sidebar = new \CMB2_Field_Widget_Selector\Sidebar();
 }
 
-function cmb2_field_widget_select_uninstall() {
-   require_once plugin_dir_path( __FILE__ ) . 'includes/sidebar.php';
-   CMB2_Sidebar::delete_sidebar_name();
+function cmb2_field_widget_selector_deactivate() {
+//   require_once plugin_dir_path( __FILE__ ) . 'includes/class-sidebar.php';
+//   Sidebar::unregister_sidebar();
 }
 
-register_activation_hook( __FILE__, 'cmb2_field_widget_select_install' );
-register_deactivation_hook( __FILE__, 'cmb2_field_widget_select_uninstall' );
+register_activation_hook( PLUGIN_URL, __NAMESPACE__ . '\cmb2_field_widget_selector_activate' );
+register_deactivation_hook( __FILE__, __NAMESPACE__ . '\cmb2_field_widget_selector_deactivate' );
 
-require plbuin_dir_path( __FILE__ ) . 'includes/class-field.php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-cmb2-field-widget-selector.php';
 
-function run_cmb2_field_widget_select() {
-   $plugin = new CMB2_Field_Widget_Select();
+function run_cmb2_field_widget_selector() {
+   
+   $plugin = new \CMB2_Field_Widget_Selector\CMB2_Field_Widget_Selector();
    $plugin->run();
 }
 
-run_cmb2_field_widget_select();
+run_cmb2_field_widget_selector();

@@ -1,12 +1,12 @@
 <?php
 
-namespace cmb2_field_widget_selector\loader;
+namespace CMB2_Field_Widget_Selector\loader;
 
 /**
  * Register actions and filters.
  */
 
-class CMB2_Field_Widget_Selector_Loader {
+class Loader {
 
   protected $actions;
   protected $filters;
@@ -44,5 +44,4 @@ class CMB2_Field_Widget_Selector_Loader {
   	  add_action( $hook['hook'], [$hook['component'], $hook['callback']], $hook['priority'], $hook['accepted_args'] );
   	}
   }
-
 }
