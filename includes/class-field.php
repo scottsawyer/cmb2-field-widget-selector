@@ -93,10 +93,6 @@ if ( ! class_exists( 'Field' ) ) {
       
       global $wp_registered_widgets;
 
-      print '<pre>';
-      //print_r($wp_registered_widgets);
-      print '</pre>';
-
       $sidebars_widgets = get_option( 'sidebars_widgets' );
 
       $sidebar_widgets = [];
