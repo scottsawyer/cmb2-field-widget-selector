@@ -27,7 +27,7 @@ Installing CMB2 Field Widget Selector automatically creates a new sidebar.  It u
 
 Next you create one or more widgets by dropping them in the new sidebar and configuring them to your heart's content.
 
-Then you create a metabox using CMB2's normal process, and add the field type: 'cmb2_field_widget_selector'.
+Then you create a metabox using CMB2's normal process, and add the field type: 'widget_selector'.
 
 Finally, when you edit a post, you will see the new field, which is a select widget that contains options for each widget you created.  It's a repeatable field, so you can add as many widgets as you like.
 
