@@ -29,6 +29,17 @@ Next you create one or more widgets by dropping them in the new sidebar and conf
 
 Then you create a metabox using CMB2's normal process, and add the field type: 'widget_selector'.
 
+```
+// Assumes you initiated a metabox $cmb2.
+$cmb->add_field( [
+  'name' => __( 'Widgets', TEXTDOMAIN ),
+  'desc' => __( 'Select a widget to display', TEXTDOMAIN ),
+  'id' => $my_prefix . 'widget',
+  'type' => 'widget_selector',
+  ]
+);
+```
+
 Finally, when you edit a post, you will see the new field, which is a select widget that contains options for each widget you created.  It's a repeatable field, so you can add as many widgets as you like.
 
 Back to our example, if you decide to change the address or phone number for your company, just update the widget and, amazingly, it's changed everywhere.
