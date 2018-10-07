@@ -55,7 +55,7 @@ if ( ! class_exists( 'Field' ) ) {
         <?= $field_type_object->select( [
           'name' => $field_type_object->_name( '[widgets]' ),
           'id' => $field_type_object->_id( '_widgets' ),
-          'desc' => esc_html( 'Add widget.', 'cmb2_field_wiget_selector' ),
+          'desc' => esc_html( 'Add widget.', 'cmb2_field_widget_selector' ),
           'options' => $options,
         ] ); ?>      	
       </div>
