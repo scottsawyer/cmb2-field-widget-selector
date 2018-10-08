@@ -25,7 +25,7 @@ class CMB2_Field_Widget_Selector {
 
 		$this->plugin_name = 'cmb2-field-widget-selector';
     $this->load_dependencies();
-		//$this->define_hooks();
+		$this->define_public_hooks();
 
 		$this->sidebar = new Sidebar\Sidebar();
 
@@ -53,6 +53,11 @@ class CMB2_Field_Widget_Selector {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-field.php';
 
+		/**
+		 * Require shortcode.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-cmb2-field-widget-selector-public.php';
+
 		$this->loader = new loader\Loader();
 	}
 
@@ -62,17 +67,19 @@ class CMB2_Field_Widget_Selector {
 		}
 	}
 
+
+
 	/**
-	 * Register all of the hooks related to the admin area functionality
+	 * Register all of the hooks related to the public functionality
 	 * of the plugin.
 	 *
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_admin_hooks() {
-		$plugin_admin = new CMB2_Field_Widget_Selector_Admin( $this->get_plugin_name(), $this->get_version() );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+	private function define_public_hooks() {
+		$plugin_public = new CMB2_Field_Widget_Selector_Public( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_action( 'public_enqueue_scripts', $plugin_public, 'enqueue_styles' );
+		$this->loader->add_action( 'public_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 	}
 
 	/**

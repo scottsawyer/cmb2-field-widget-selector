@@ -47,3 +47,51 @@ Back to our example, if you decide to change the address or phone number for you
 ## Installation.
 
 This field type installs as a plugin.  Just drop it in your plugins directory and activate.  It totally depends on CMB2, so make sure you have it installed.  I only tested with the CMB2 plugin.
+
+## Getting you widget
+
+You need to retrieve your [post meta](https://github.com/CMB2/CMB2/wiki/Basic-Usage#display-the-metadata).
+
+It's going to come out as an array. 
+
+```
+$meta_data = get_post_meta( get_the_ID(), '_yourprefix_widget', true );
+
+var_dump( $meta_data );
+
+// Result
+array(
+    'widgets' => widget_id // widget id is the actual id of the widget.
+)
+
+
+
+```
+
+If you use it as a repeater field:
+
+```
+var_dump( $meta_data );
+
+// Result
+
+Array(
+ [0] => Array (
+   'widgets' => widget_id,
+   ),
+  [1] => Array(
+    'widgets' => widget_id,
+  ),
+)
+
+```
+
+WordPress actually makes this next part complicated, actually displaying your widget without rendering your sidebar.  
+
+The plugin comes with a handy shortcode for rendering your widget.  It's pretty plain right now, but I might add features over time.
+
+```
+[widget_selector widget="<?php print $meta_data['widgets']; ?>"];
+```
+
+That should be good enough to render a widget.  I've only tested with a few to this point, core widgets.  There are probably cases where a plugin does something fancy and it breaks.  Just post an issue.

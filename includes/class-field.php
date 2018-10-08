@@ -25,7 +25,7 @@ if ( ! class_exists( 'Field' ) ) {
     public function __construct() {
       add_action( 'cmb2_render_widget_selector', [$this, 'render'], 10, 5);
       add_filter( 'cmb2_sanitize_widget_selector', [$this, 'sanitize'], 10, 5);
-
+      add_filter( 'cmb2_types_esc_widget_selector', [$this, 'escape'], 10, 4 );
     }
 
     public function render( $field, $field_escaped_value, $field_object_id, $field_object_type, $field_type_object ) {
@@ -43,9 +43,15 @@ if ( ! class_exists( 'Field' ) ) {
           $widget_options[$widget_id] = $widget_title . ' [' . $widget_id . ']';
         }
       }
-      $options = '<option value="--">' . esc_html( 'Select a widget' ) . '</option>';
+
+      //$options = '<option value="--">' . esc_html( 'Select a widget' ) . '</option>';
+      $options = '';
       foreach ( $widget_options as $key => $value ) {
-        $options .= '<option value="' . $key . '" ' . selected( $field_escaped_value['widgets'], $key, false ) . '>' . $value . '</option>'; 
+        $options .= '<option value="' . $key . '" ';
+        if ( is_array( $field_escaped_value ) && array_key_exists( 'widgets', $field_escaped_value ) && $field_escaped_value['widgets'] == $key ) {
+          $options .= ' selected ';
+        }
+        $options .= '>' . $value . '</option>'; 
       }
 
 
@@ -70,16 +76,46 @@ if ( ! class_exists( 'Field' ) ) {
      */
     public function sanitize( $check, $meta_value, $object_id, $field_args, $sanitize_object ) {
 
+      $widgets = self::get_widgets();
+      $widget_options = [];
+      $return_value = [];
+      foreach ( $widgets as $key => $value ) {
+        foreach ( $value as $widget_id => $widget_title ) {
+          $widget_options[$widget_id] = $widget_title . ' [' . $widget_id . ']';
+        }
+      }  
+      foreach ( $meta_value as $key => $value ) {
+        if ( array_key_exists( $value['widgets'], $widget_options ) ) {
+          $return_value[$key] = $meta_value[$key];
+        }
+
+      }
+    return $return_value;
+
+    }
+
+    /**
+     * Escapes values.
+     */
+    public static function escape( $check, $meta_value, $field_args, $field_object ) {
       if ( ! is_array( $meta_value ) || ! $field_args['repeatable'] ) {
         return $check;
       }
-      foreach ( $meta_value as $key => $val ) {
-
-        $meta_value[$key] = array_filter( array_map( 'sanitize_text_field', $val ) );
+      $widgets = self::get_widgets();
+      $widget_options = [];
+      $return_value = [];
+      foreach ( $widgets as $key => $value ) {
+        foreach ( $value as $widget_id => $widget_title ) {
+          $widget_options[$widget_id] = $widget_title . ' [' . $widget_id . ']';
+        }
+      }  
+      foreach ( $meta_value as $key => $value ) {
+        if ( array_key_exists( $value['widgets'], $widget_options ) ) {
+          $return_value[$key] = $meta_value[$key];
+        }
 
       }
-
-      return array_filter( $meta_value );      
+    return $return_value;
     }
 
     /**
@@ -135,5 +171,3 @@ if ( ! class_exists( 'Field' ) ) {
      }
   }
 }
-
-//Field::get_instance();
