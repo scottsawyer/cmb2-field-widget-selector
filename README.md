@@ -11,11 +11,14 @@ CMB2 Field Widget Selector introduces a new field type that displays a list of w
 Widget instances can contain a variety of settings.  If you need to display a particular widget instance in the context of a specific post or posts, you only have a couple of options:
 1. Create a sidebar and deploy the widget with one or more conditionals. 
 2. Use some sort of page builder which instantiates it's on widget instance.
-3. Use Widget Selector.
+3. Use a dedicated [plugin](https://wordpress.org/plugins/widgets-on-pages/#developers) 
+4. Use Widget Selector.
 
 The problem with #1 is you could be continuously going back to the your increasing complex set of conditional logic of where and how to display your Widget instance.  It's not easy for an editor to control when / where / how a specific widget is displayed.
 
-The problem with #2 is you have to actually create multiple instances of the widget for each post you want it displayed.
+The problem with #2 is you have to actually create multiple instances of the widget for each post you want it displayed.  You might be able to create a reusable component ( depending on the builder ), but what if you aren't already using a builder that supports this.
+
+The [Widgets on Pages](https://wordpress.org/plugins/widgets-on-pages/#developers) plugin looks decent enough ( I haven't tested ), but if you are already using CMB2, then it makes sense to just use a field.
 
 #### Example:
 
@@ -25,7 +28,11 @@ Let's say you have a widget that displays company address and phone number.  Thi
 
 Installing CMB2 Field Widget Selector automatically creates a new sidebar.  It uses PHP's uniqueid() to prevent name collisions and stores the name in an option.  It uses the label "Builder Sidebar".  Future versions may include a form to allow you to change the label since it's not really important.
 
+![widget selector sidebar](https://github.com/scottsawyer/cmb2-field-widget-selector/raw/master/assets/images/screenshot-demo.wp-builder.net-2018.10.07-01-13-08.png "Widget Selector Sidebar")
+
 Next you create one or more widgets by dropping them in the new sidebar and configuring them to your heart's content.
+
+![widget selector sidebar text widget](https://github.com/scottsawyer/cmb2-field-widget-selector/raw/master/assets/images/screenshot-demo.wp-builder.net-2018.10.07-01-24-24.png "Widget Selector Sidebar text widget")
 
 Then you create a metabox using CMB2's normal process, and add the field type: 'widget_selector'.
 
@@ -41,6 +48,8 @@ $cmb->add_field( [
 ```
 
 Finally, when you edit a post, you will see the new field, which is a select widget that contains options for each widget you created.  It's a repeatable field, so you can add as many widgets as you like.
+
+![widget selector select widget](https://github.com/scottsawyer/cmb2-field-widget-selector/raw/master/assets/images/screenshot-demo.wp-builder.net-2018.10.07-01-28-06.png "Select widget")
 
 Back to our example, if you decide to change the address or phone number for your company, just update the widget and, amazingly, it's changed everywhere.
 
