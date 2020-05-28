@@ -5,9 +5,9 @@
    * @copyright Copyright (c) scottsawyer
    *
    * Plugin Name: CMB2 Field Type: Widget Selector
-   * Plugin URI: https://github.com/scottsawyer/cmb2-field-link
-   * Github Plugin URI: https://github.com/scottsawyer/cmb2-field-link
-   * Description: CMB2 field type to create a link.
+   * Plugin URI: https://github.com/scottsawyer/cmb2-field-widget-selector
+   * Github Plugin URI: https://github.com/scottsawyer/cmb2-field-widget-selector
+   * Description: CMB2 field type that allows you to select a widget.
    * Version: 1.0
    * Author: scottsawyer
    * Author URI: https://www.scottsawyerconsulting.com
